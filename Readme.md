@@ -1,7 +1,7 @@
 # Личный проект «Большое путешествие» [![Build status][travis-image]][travis-url]
 
 * Студент: [Наталья Осокина](https://up.htmlacademy.ru/ecmascript/8/user/323577).
-* Наставник: [Дмитрий Донецкий] (https://htmlacademy.ru/profile/id497669).
+* Наставник: [Дмитрий Донецкий](https://htmlacademy.ru/profile/id497669).
 
 ---
 
