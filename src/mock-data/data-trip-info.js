@@ -1,13 +1,7 @@
 import {getIntervalNum, getRandomArray} from '../utils';
 
 
-const DAY_PER_WEEK = 7;
-const HOUR_PER_DAY = 24;
-const MINUTES_PER_HOUR = 60;
-const SECONDS_PER_MINUTE = 60;
-const MILLISECONDS_PER_SECOND = 1000;
-const MILLISECONDS_IN_WEEK = DAY_PER_WEEK * HOUR_PER_DAY * MINUTES_PER_HOUR
-  * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND;
+const MILLISECONDS_IN_WEEK = 7 * 24 * 60 * 60 * 1000;
 const CITIES = [
   `Amsterdam`,
   `Geneva`,
