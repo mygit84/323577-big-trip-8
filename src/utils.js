@@ -1,5 +1,9 @@
 const getIntervalNum = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
+const getRandomElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+const getRandomArray = () => Math.random() - 0.5;
+
 const getNewArray = (arr) => {
   const randomNum = getIntervalNum(1, arr.length + 1);
 
@@ -14,4 +18,4 @@ const getCleanContainer = (container) => {
   container.innerHTML = ``;
 };
 
-export {getNewArray, renderElement, getCleanContainer};
+export {getIntervalNum, getRandomElement, getRandomArray, getNewArray, renderElement, getCleanContainer};

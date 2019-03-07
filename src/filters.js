@@ -1,4 +1,17 @@
 const CONTAINER_FILTERS = document.querySelector(`.trip-filter`);
+const FILTERS = [
+  {
+    title: `Everything`,
+    isChecked: true
+  },
+  {
+    title: `Future`
+  },
+  {
+    title: `Past`
+  }
+];
+
 
 const getFilter = (title, isChecked = false) => {
   return `<input
@@ -14,8 +27,8 @@ const getFilter = (title, isChecked = false) => {
   </label>`;
 };
 
-const drawFilters = (arr, callback) => {
-  arr.forEach((item) => {
+const drawFilters = (callback) => {
+  FILTERS.forEach((item) => {
     callback(CONTAINER_FILTERS, getFilter(item.title, item.isChecked));
   });
 };
@@ -24,5 +37,6 @@ const getArrayFiltersButtons = () => {
   const arrayFiltersButton = document.querySelectorAll(`.trip-filter__item`);
   return arrayFiltersButton;
 };
+
 
 export {drawFilters, getArrayFiltersButtons};
