@@ -1,20 +1,10 @@
+import {EVENT_TYPES} from '../constants';
 import {getIntervalNum, getRandomElement, getRandomArray} from '../utils';
+import {getOffersElements} from '../mock-data/data-offers';
 
 
 const MAX_NUMBER_EVENTS = 7;
 const TITLES = [`Taxi to Airport`, `Flight to Geneva`, `Check into hotel`, `Supper at restaurant`];
-const EVENT_TYPES = new Map([
-  [`Taxi`, `🚕`],
-  [`Bus`, `🚌`],
-  [`Train`, `🚂`],
-  [`Ship`, `🛳️`],
-  [`Transport`, `🚊`],
-  [`Drive`, `🚗`],
-  [`Flight`, `✈️`],
-  [`Check-in`, `🏨`],
-  [`Sightseeing`, `🏛️`],
-  [`Restaurant `, `🍴`]
-]);
 const DESCRIPTION = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis
 at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex,
@@ -39,22 +29,26 @@ const NumberProposals = {
   MIN: 1,
   MAX: 3
 };
-
-
-const getArrayIcon = () => {
-  const arrayIcon = [];
-
-  EVENT_TYPES.forEach((value) => {
-    arrayIcon.push(value);
-  });
-
-  return arrayIcon;
+const NumburPhotos = {
+  MIN: 0,
+  MAX: 5
 };
 
-const getRandomIcon = () => {
-  const randomIcon = getRandomElement(getArrayIcon());
 
-  return randomIcon;
+const getArrayType = () => {
+  const arrayType = [];
+
+  EVENT_TYPES.forEach((value, key) => {
+    arrayType.push(key);
+  });
+
+  return arrayType;
+};
+
+const getRandomType = () => {
+  const randomType = getRandomElement(getArrayType());
+
+  return randomType;
 };
 
 const getHours = () => {
@@ -91,14 +85,28 @@ const getDurationEvent = () => {
   return duration;
 };
 
+const getRandomNumberPhotos = () => getIntervalNum(NumburPhotos.MIN, NumburPhotos.MAX);
+
+const getArrayPhotos = () => {
+  const numberPhotos = getRandomNumberPhotos();
+  const arrayPhotos = [];
+
+  for (let i = 0; i < numberPhotos; i++) {
+    arrayPhotos.push(`http://picsum.photos/300/150?r=${Math.random()}`);
+  }
+
+  return arrayPhotos;
+};
+
 const getObjectPlannedEvent = () => ({
   title: getRandomElement(TITLES),
-  icon: getRandomIcon(),
+  type: getRandomType(),
   timetable: getTimeTableEvent(),
   duration: getDurationEvent(),
   price: getIntervalNum(Price.MIN, Price.MAX),
-  photo: `http://picsum.photos/300/150?r=${Math.random()}`,
+  photos: getArrayPhotos(),
   description: DESCRIPTION.split(`. `).sort(getRandomArray).slice(NumberProposals.MIN, NumberProposals.MAX + 1).join(``),
+  offers: getOffersElements()
 });
 
 const getArrayObjectsPlannedEvents = () => {

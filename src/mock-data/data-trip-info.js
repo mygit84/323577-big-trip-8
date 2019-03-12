@@ -1,23 +1,8 @@
 import {getIntervalNum, getRandomArray} from '../utils';
+import {CITIES} from '../constants';
 
 
 const MILLISECONDS_IN_WEEK = 7 * 24 * 60 * 60 * 1000;
-const CITIES = [
-  `Amsterdam`,
-  `Geneva`,
-  `Paris`,
-  `Vienna`,
-  `Prague`,
-  `Cairo`,
-  `Tallinn`,
-  `Dublin`,
-  `Rome`,
-  `Stockholm`,
-  `Washington`,
-  `Caracas`,
-  `Moscow`,
-  `London`
-];
 const NumberCities = {
   MIN: 2,
   MAX: 6
@@ -84,4 +69,4 @@ const getObjectTripInfo = () => ({
 });
 
 
-export {getObjectTripInfo};
+export {getObjectTripInfo, CITIES};
