@@ -69,4 +69,4 @@ const getObjectTripInfo = () => ({
 });
 
 
-export {getObjectTripInfo, CITIES};
+export {getObjectTripInfo};
