@@ -18,4 +18,17 @@ const getCleanContainer = (container) => {
   container.innerHTML = ``;
 };
 
-export {getIntervalNum, getRandomElement, getRandomArray, getNewArray, renderElement, getCleanContainer};
+const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+  return newElement.firstChild;
+};
+
+const drawOffers = (offers, callback) => {
+
+  return offers.map((item) =>
+    callback(item)
+  ).join(``);
+};
+
+export {getIntervalNum, getRandomElement, getRandomArray, getNewArray, renderElement, createElement, getCleanContainer, drawOffers};

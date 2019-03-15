@@ -1,16 +1,38 @@
 import {getNewArray, renderElement, getCleanContainer} from '../src/utils';
 import {drawFilters, getArrayFiltersButtons} from '../src/filters';
-import {drawPlannedEvents} from '../src/planned-events';
-import {drawOffers} from '../src/offers';
 import {drawTripInfoElement} from '../src/trip-info';
 import {getObjectTripInfo} from '../src/mock-data/data-trip-info';
-import {getOffersElements} from '../src/mock-data/data-offers';
 import {getArrayObjectsPlannedEvents} from '../src/mock-data/data-planned-events';
+import {PlannedEvent} from '../src/components/planned-event';
+import {PlannedEventEdit} from '../src/components/planned-event-edit';
 
 
 const CONTAINER_TRIP_ITEMS = document.querySelector(`.trip-day__items`);
 const CONTAINER_TRIP_INFO = document.querySelector(`.trip`);
 
+
+const drawPlannedEvents = (arr) => {
+  arr.forEach((item) => {
+    const plannedEventComponent = new PlannedEvent(item);
+    const editPlannedEventComponent = new PlannedEventEdit(item);
+    const plannedEventElement = plannedEventComponent.render();
+    const editPlannedEventElement = editPlannedEventComponent.render();
+
+    CONTAINER_TRIP_ITEMS.appendChild(plannedEventElement);
+
+    plannedEventComponent.onClick = () => {
+      CONTAINER_TRIP_ITEMS.replaceChild(editPlannedEventElement, plannedEventElement);
+    };
+
+    editPlannedEventComponent.onSubmit = () => {
+      CONTAINER_TRIP_ITEMS.replaceChild(plannedEventElement, editPlannedEventElement);
+    };
+
+    editPlannedEventComponent.onReset = () => {
+      CONTAINER_TRIP_ITEMS.replaceChild(plannedEventElement, editPlannedEventElement);
+    };
+  });
+};
 
 const setCleanContainers = () => {
   getCleanContainer(CONTAINER_TRIP_ITEMS);
@@ -21,8 +43,7 @@ const getFiltersButtonClickHandler = (element, i) => {
   element[i].addEventListener(`click`, () => {
     setCleanContainers();
     drawTripInfoElement(renderElement, CONTAINER_TRIP_INFO, getObjectTripInfo());
-    drawPlannedEvents(getNewArray(getArrayObjectsPlannedEvents()), CONTAINER_TRIP_ITEMS, renderElement);
-    drawOffers(renderElement, getOffersElements);
+    drawPlannedEvents(getNewArray(getArrayObjectsPlannedEvents()));
   });
 };
 
@@ -34,15 +55,10 @@ const onClickFilterButton = () => {
   });
 };
 
-const setPlannedEventsElements = () => {
-  drawPlannedEvents(getArrayObjectsPlannedEvents(), CONTAINER_TRIP_ITEMS, renderElement);
-  drawOffers(renderElement, getOffersElements);
-};
-
 const setPageElements = () => {
   drawTripInfoElement(renderElement, CONTAINER_TRIP_INFO, getObjectTripInfo());
   drawFilters(renderElement);
-  setPlannedEventsElements();
+  drawPlannedEvents(getArrayObjectsPlannedEvents());
 };
 
 setPageElements();

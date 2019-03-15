@@ -7,7 +7,7 @@ const OFFERS = [
   ` Add meal`,
   `Choose seats`
 ];
-const NumberOffers = {
+const NumberOfOffers = {
   MIN: 0,
   MAX: 2
 };
@@ -24,7 +24,7 @@ const getRandomOfferPrice = () => {
 };
 
 const getNumberOffers = () => {
-  const numberOffers = getIntervalNum(NumberOffers.MIN, NumberOffers.MAX + 1);
+  const numberOffers = getIntervalNum(NumberOfOffers.MIN, NumberOfOffers.MAX + 1);
 
   return numberOffers;
 };

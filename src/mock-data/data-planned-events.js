@@ -1,20 +1,10 @@
+import {EVENT_TYPES} from '../constants';
 import {getIntervalNum, getRandomElement, getRandomArray} from '../utils';
+import {getOffersElements} from '../mock-data/data-offers';
 
 
 const MAX_NUMBER_EVENTS = 7;
 const TITLES = [`Taxi to Airport`, `Flight to Geneva`, `Check into hotel`, `Supper at restaurant`];
-const EVENT_TYPES = new Map([
-  [`Taxi`, `🚕`],
-  [`Bus`, `🚌`],
-  [`Train`, `🚂`],
-  [`Ship`, `🛳️`],
-  [`Transport`, `🚊`],
-  [`Drive`, `🚗`],
-  [`Flight`, `✈️`],
-  [`Check-in`, `🏨`],
-  [`Sightseeing`, `🏛️`],
-  [`Restaurant `, `🍴`]
-]);
 const DESCRIPTION = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis
 at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex,
@@ -23,11 +13,11 @@ condimentum sed nibh vitae, sodales efficitur ipsum. Sed blandit,
 eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui.
 Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat.
 Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.`;
-const NumberHours = {
+const NumberOfHours = {
   MIN: 0,
   MAX: 24
 };
-const NumberMinutes = {
+const NumberOfMinutes = {
   MIN: 0,
   MAX: 59
 };
@@ -35,37 +25,41 @@ const Price = {
   MIN: 100,
   MAX: 1000
 };
-const NumberProposals = {
+const NumberOfProposals = {
   MIN: 1,
   MAX: 3
 };
-
-
-const getArrayIcon = () => {
-  const arrayIcon = [];
-
-  EVENT_TYPES.forEach((value) => {
-    arrayIcon.push(value);
-  });
-
-  return arrayIcon;
+const NumberOfPhotos = {
+  MIN: 0,
+  MAX: 5
 };
 
-const getRandomIcon = () => {
-  const randomIcon = getRandomElement(getArrayIcon());
 
-  return randomIcon;
+const getArrayType = () => {
+  const arrayType = [];
+
+  EVENT_TYPES.forEach((value, key) => {
+    arrayType.push(key);
+  });
+
+  return arrayType;
+};
+
+const getRandomType = () => {
+  const randomType = getRandomElement(getArrayType());
+
+  return randomType;
 };
 
 const getHours = () => {
-  const randomHours = getIntervalNum(NumberHours.MIN, NumberHours.MAX);
+  const randomHours = getIntervalNum(NumberOfHours.MIN, NumberOfHours.MAX);
   const hour = `${randomHours < 10 ? `0${randomHours}` : randomHours}`;
 
   return hour;
 };
 
 const getMinutes = () => {
-  const randomMinutes = getIntervalNum(NumberMinutes.MIN, NumberMinutes.MAX);
+  const randomMinutes = getIntervalNum(NumberOfMinutes.MIN, NumberOfMinutes.MAX);
   const minutes = `${randomMinutes < 10 ? `0${randomMinutes}` : randomMinutes}`;
 
   return minutes;
@@ -91,22 +85,28 @@ const getDurationEvent = () => {
   return duration;
 };
 
+const getRandomNumberPhotos = () => getIntervalNum(NumberOfPhotos.MIN, NumberOfPhotos.MAX);
+
+const getArrayPhotos = () => {
+  const numberPhotos = getRandomNumberPhotos();
+  const arrayPhotos = new Array(numberPhotos).fill().map(() => `http://picsum.photos/300/150?r=${Math.random()}`);
+
+  return arrayPhotos;
+};
+
 const getObjectPlannedEvent = () => ({
   title: getRandomElement(TITLES),
-  icon: getRandomIcon(),
+  type: getRandomType(),
   timetable: getTimeTableEvent(),
   duration: getDurationEvent(),
   price: getIntervalNum(Price.MIN, Price.MAX),
-  photo: `http://picsum.photos/300/150?r=${Math.random()}`,
-  description: DESCRIPTION.split(`. `).sort(getRandomArray).slice(NumberProposals.MIN, NumberProposals.MAX + 1).join(``),
+  photos: getArrayPhotos(),
+  description: DESCRIPTION.split(`. `).sort(getRandomArray).slice(NumberOfProposals.MIN, NumberOfProposals.MAX + 1).join(``),
+  offers: getOffersElements()
 });
 
 const getArrayObjectsPlannedEvents = () => {
-  const plannedEvents = [];
-
-  for (let i = 0; i < MAX_NUMBER_EVENTS; i++) {
-    plannedEvents.push(getObjectPlannedEvent());
-  }
+  const plannedEvents = new Array(MAX_NUMBER_EVENTS).fill().map(() => getObjectPlannedEvent());
 
   return plannedEvents;
 };

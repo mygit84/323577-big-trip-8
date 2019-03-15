@@ -1,28 +1,13 @@
 import {getIntervalNum, getRandomArray} from '../utils';
+import {CITIES} from '../constants';
 
 
 const MILLISECONDS_IN_WEEK = 7 * 24 * 60 * 60 * 1000;
-const CITIES = [
-  `Amsterdam`,
-  `Geneva`,
-  `Paris`,
-  `Vienna`,
-  `Prague`,
-  `Cairo`,
-  `Tallinn`,
-  `Dublin`,
-  `Rome`,
-  `Stockholm`,
-  `Washington`,
-  `Caracas`,
-  `Moscow`,
-  `London`
-];
-const NumberCities = {
+const NumberOfCities = {
   MIN: 2,
   MAX: 6
 };
-const NumberWeeks = {
+const NumberOfWeeks = {
   MIN: 0,
   MAX: 3
 };
@@ -34,7 +19,7 @@ const TotalPrice = {
 const getCityElement = (city) => `${city}&nbsp;&mdash; `;
 
 const getNumberCities = () => {
-  const numberCities = getIntervalNum(NumberCities.MIN, NumberCities.MAX);
+  const numberCities = getIntervalNum(NumberOfCities.MIN, NumberOfCities.MAX);
 
   return numberCities;
 };
@@ -61,7 +46,7 @@ const getStringCities = () => {
 
 const getTripDateStart = () => Date.now() + MILLISECONDS_IN_WEEK;
 
-const getTripDateEnd = () => Date.now() + getIntervalNum(NumberWeeks.MIN, NumberWeeks.MAX) * MILLISECONDS_IN_WEEK;
+const getTripDateEnd = () => Date.now() + getIntervalNum(NumberOfWeeks.MIN, NumberOfWeeks.MAX) * MILLISECONDS_IN_WEEK;
 
 const getTripDate = () => {
   const dateStart = getTripDateStart();
