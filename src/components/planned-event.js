@@ -1,10 +1,11 @@
 import {EVENT_TYPES} from '../constants';
+import {Component} from './component';
 import {getPlannedEventTemplate} from '../templates/planned-event-template';
-import {createElement} from '../utils';
 
 
-class PlannedEvent {
+class PlannedEvent extends Component {
   constructor(data) {
+    super();
     this._type = data.type;
     this._icon = EVENT_TYPES.get(data.type);
     this._title = data.title;
@@ -13,7 +14,7 @@ class PlannedEvent {
     this._price = data.price;
     this._offers = data.offers;
 
-    this._element = null;
+    this._onPlannedEventClick = this._onPlannedEventClick.bind(this);
     this._onClick = null;
   }
 
@@ -25,23 +26,12 @@ class PlannedEvent {
     this._onClick = fn;
   }
 
-  get element() {
-    return this._element;
-  }
-
   get template() {
     return getPlannedEventTemplate(this._icon, this._title, this._timetable, this._duration, this._price, this._offers);
   }
 
   bind() {
-    this._element.addEventListener(`click`, this._onPlannedEventClick.bind(this));
-  }
-
-  render() {
-    this._element = createElement(this.template);
-    this.bind();
-
-    return this._element;
+    this._element.addEventListener(`click`, this._onPlannedEventClick);
   }
 }
 
