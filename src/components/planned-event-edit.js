@@ -1,10 +1,11 @@
 import {EVENT_TYPES} from '../constants';
+import {Component} from './component';
 import {getPointDescriptionTemplate} from '../templates/point-description-template';
-import {createElement} from '../utils';
 
 
-class PlannedEventEdit {
+class PlannedEventEdit extends Component {
   constructor(data) {
+    super();
     this._type = data.type;
     this._icon = EVENT_TYPES.get(data.type);
     this._timetable = data.timetable;
@@ -13,8 +14,10 @@ class PlannedEventEdit {
     this._description = data.description;
     this._photos = data.photos;
 
-    this._element = null;
+    this._onSaveButtonClick = this._onSaveButtonClick.bind(this);
     this._onSubmit = null;
+
+    this._onDeleteButtonClick = this._onDeleteButtonClick.bind(this);
     this._onReset = null;
   }
 
@@ -38,10 +41,6 @@ class PlannedEventEdit {
     this._onReset = fn;
   }
 
-  get element() {
-    return this._element;
-  }
-
   get template() {
     return getPointDescriptionTemplate(this._icon, this._type, this._timetable, this._price, this._offers, this._description, this._photos);
   }
@@ -49,15 +48,8 @@ class PlannedEventEdit {
   bind() {
     const form = this._element.querySelector(`form`);
 
-    form.addEventListener(`submit`, this._onSaveButtonClick.bind(this));
-    form.addEventListener(`reset`, this._onDeleteButtonClick.bind(this));
-  }
-
-  render() {
-    this._element = createElement(this.template);
-    this.bind();
-
-    return this._element;
+    form.addEventListener(`submit`, this._onSaveButtonClick);
+    form.addEventListener(`reset`, this._onDeleteButtonClick);
   }
 }
 
