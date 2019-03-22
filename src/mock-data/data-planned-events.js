@@ -1,10 +1,9 @@
-import {EVENT_TYPES} from '../constants';
+import {EVENT_TYPES, CITIES} from '../constants';
 import {getIntervalNum, getRandomElement, getRandomArray} from '../utils';
-import {getOffersElements} from '../mock-data/data-offers';
+import {getRandomArrayObjectsOffers} from '../mock-data/data-offers';
 
 
 const MAX_NUMBER_EVENTS = 7;
-const TITLES = [`Taxi to Airport`, `Flight to Geneva`, `Check into hotel`, `Supper at restaurant`];
 const DESCRIPTION = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis
 at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex,
@@ -51,6 +50,12 @@ const getRandomType = () => {
   return randomType;
 };
 
+const getRandomDestination = () => {
+  const randomDestination = getRandomElement(CITIES);
+
+  return randomDestination;
+};
+
 const getHours = () => {
   const randomHours = getIntervalNum(NumberOfHours.MIN, NumberOfHours.MAX);
   const hour = `${randomHours < 10 ? `0${randomHours}` : randomHours}`;
@@ -73,12 +78,6 @@ const getTime = () => {
   return time;
 };
 
-const getTimeTableEvent = () => {
-  const timeTable = `${getTime()} &nbsp;&mdash; ${getTime()}`;
-
-  return timeTable;
-};
-
 const getDurationEvent = () => {
   const duration = `${getHours()}H ${getMinutes()}M`;
 
@@ -95,14 +94,17 @@ const getArrayPhotos = () => {
 };
 
 const getObjectPlannedEvent = () => ({
-  title: getRandomElement(TITLES),
   type: getRandomType(),
-  timetable: getTimeTableEvent(),
+  destination: getRandomDestination(),
+  time: {
+    start: getTime(),
+    end: getTime()
+  },
   duration: getDurationEvent(),
   price: getIntervalNum(Price.MIN, Price.MAX),
   photos: getArrayPhotos(),
   description: DESCRIPTION.split(`. `).sort(getRandomArray).slice(NumberOfProposals.MIN, NumberOfProposals.MAX + 1).join(``),
-  offers: getOffersElements()
+  offer: getRandomArrayObjectsOffers()
 });
 
 const getArrayObjectsPlannedEvents = () => {
