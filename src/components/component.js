@@ -20,6 +20,8 @@ class Component {
 
   bind() {}
 
+  update() {}
+
   render() {
     this._element = createElement(this.template);
     this.bind();

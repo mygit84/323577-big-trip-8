@@ -3,8 +3,10 @@ import {drawFilters, getArrayFiltersButtons} from '../src/filters';
 import {drawTripInfoElement} from '../src/trip-info';
 import {getObjectTripInfo} from '../src/mock-data/data-trip-info';
 import {getArrayObjectsPlannedEvents} from '../src/mock-data/data-planned-events';
+import {getNewArrayObjectsOffers} from '../src/mock-data/data-offers';
 import {PlannedEvent} from '../src/components/planned-event';
 import {PlannedEventEdit} from '../src/components/planned-event-edit';
+import {EVENT_TYPES} from '../src/constants';
 
 
 const CONTAINER_TRIP_ITEMS = document.querySelector(`.trip-day__items`);
@@ -14,22 +16,30 @@ const CONTAINER_TRIP_INFO = document.querySelector(`.trip`);
 const drawPlannedEvents = (arr) => {
   arr.forEach((item) => {
     const plannedEventComponent = new PlannedEvent(item);
-    const editPlannedEventComponent = new PlannedEventEdit(item);
-    const plannedEventElement = plannedEventComponent.render();
-    const editPlannedEventElement = editPlannedEventComponent.render();
+    const editPlannedEventComponent = new PlannedEventEdit(item, getNewArrayObjectsOffers());
 
-    CONTAINER_TRIP_ITEMS.appendChild(plannedEventElement);
+    CONTAINER_TRIP_ITEMS.appendChild(plannedEventComponent.render());
 
     plannedEventComponent.onClick = () => {
-      CONTAINER_TRIP_ITEMS.replaceChild(editPlannedEventElement, plannedEventElement);
+      editPlannedEventComponent.render();
+      CONTAINER_TRIP_ITEMS.replaceChild(editPlannedEventComponent.element, plannedEventComponent.element);
     };
 
-    editPlannedEventComponent.onSubmit = () => {
-      CONTAINER_TRIP_ITEMS.replaceChild(plannedEventElement, editPlannedEventElement);
+    editPlannedEventComponent.onSubmit = (newObject) => {
+      item.destination = newObject.destination;
+      item.price = newObject.price;
+      item.type = newObject.type;
+      item.icon = EVENT_TYPES.get(newObject.type);
+      item.offer = newObject.offer;
+      item.time = newObject.time;
+      item.duration = newObject.duration;
+      plannedEventComponent.update(item);
+      plannedEventComponent.render();
+      CONTAINER_TRIP_ITEMS.replaceChild(plannedEventComponent.element, editPlannedEventComponent.element);
     };
 
     editPlannedEventComponent.onReset = () => {
-      CONTAINER_TRIP_ITEMS.replaceChild(plannedEventElement, editPlannedEventElement);
+      CONTAINER_TRIP_ITEMS.replaceChild(plannedEventComponent.element, editPlannedEventComponent.element);
     };
   });
 };

@@ -1,12 +1,7 @@
+import {OFFERS} from '../constants';
 import {getIntervalNum, getRandomArray} from '../utils';
 
 
-const OFFERS = [
-  `Add luggage`,
-  `Switch to comfort class`,
-  ` Add meal`,
-  `Choose seats`
-];
 const NumberOfOffers = {
   MIN: 0,
   MAX: 2
@@ -29,22 +24,22 @@ const getNumberOffers = () => {
   return numberOffers;
 };
 
-const getNewArrayOffers = () => {
-  const newArrayOffers = OFFERS.sort(getRandomArray).slice(0, getNumberOffers());
+const getNewArrayObjectsOffers = () => {
+  const newArrayObjectsOffers = [];
 
-  return newArrayOffers;
-};
-
-const getOffersElements = () => {
-  const arrayOffers = getNewArrayOffers();
-  const arrayOffersElement = [];
-
-  arrayOffers.forEach((element) => {
-    arrayOffersElement.push(element + ` +&euro;&nbsp;` + getRandomOfferPrice());
+  OFFERS.forEach((item) => {
+    newArrayObjectsOffers.push({name: `${item}`, price: getRandomOfferPrice()});
   });
 
-  return arrayOffersElement;
+  return newArrayObjectsOffers;
+};
+
+const getRandomArrayObjectsOffers = () => {
+  const arrayObjectsOffers = getNewArrayObjectsOffers();
+  const randomArrayObjectsOffers = arrayObjectsOffers.sort(getRandomArray).slice(0, getNumberOffers());
+
+  return randomArrayObjectsOffers;
 };
 
 
-export {getOffersElements};
+export {getNewArrayObjectsOffers, getRandomArrayObjectsOffers};

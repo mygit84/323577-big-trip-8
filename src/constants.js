@@ -28,5 +28,12 @@ const CITIES = [
   `London`
 ];
 
+const OFFERS = [
+  `Add luggage`,
+  `Switch to comfort class`,
+  ` Add meal`,
+  `Choose seats`
+];
 
-export {EVENT_TYPES, CITIES};
+
+export {EVENT_TYPES, CITIES, OFFERS};

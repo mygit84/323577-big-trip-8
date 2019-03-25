@@ -24,11 +24,9 @@ const createElement = (template) => {
   return newElement.firstChild;
 };
 
-const drawOffers = (offers, callback) => {
+const getOfferId = (str) => str.replace(/ /g, `-`).toLowerCase();
 
-  return offers.map((item) =>
-    callback(item)
-  ).join(``);
-};
+const getValue = (myMap, key) => myMap.get(key);
 
-export {getIntervalNum, getRandomElement, getRandomArray, getNewArray, renderElement, createElement, getCleanContainer, drawOffers};
+
+export {getIntervalNum, getRandomElement, getRandomArray, getNewArray, renderElement, createElement, getCleanContainer, getOfferId, getValue};
