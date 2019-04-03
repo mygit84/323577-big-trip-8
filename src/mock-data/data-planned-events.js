@@ -78,12 +78,6 @@ const getTime = () => {
   return time;
 };
 
-const getDurationEvent = () => {
-  const duration = `${getHours()}H ${getMinutes()}M`;
-
-  return duration;
-};
-
 const getRandomNumberPhotos = () => getIntervalNum(NumberOfPhotos.MIN, NumberOfPhotos.MAX);
 
 const getArrayPhotos = () => {
@@ -100,12 +94,13 @@ const getObjectPlannedEvent = () => ({
     start: getTime(),
     end: getTime()
   },
-  duration: getDurationEvent(),
   price: getIntervalNum(Price.MIN, Price.MAX),
   photos: getArrayPhotos(),
   description: DESCRIPTION.split(`. `).sort(getRandomArray).slice(NumberOfProposals.MIN, NumberOfProposals.MAX + 1).join(``),
-  offer: getRandomArrayObjectsOffers()
+  offer: getRandomArrayObjectsOffers(),
+  isDelete: false
 });
+
 
 const getArrayObjectsPlannedEvents = () => {
   const plannedEvents = new Array(MAX_NUMBER_EVENTS).fill().map(() => getObjectPlannedEvent());

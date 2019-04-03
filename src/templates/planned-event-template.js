@@ -15,7 +15,7 @@ const getPlannedEventTemplate = (icon, type, time, duration, price, offers, dest
     <h3 class="trip-point__title">${type} to ${destination}</h3>
 
     <p class="trip-point__schedule">
-      <span class="trip-point__timetable">${time.start} &nbsp;&mdash; ${time.end}</span>
+      <span class="trip-point__timetable">${time.start} — ${time.end}</span>
       <span class="trip-point__duration">${duration}</span>
     </p>
 

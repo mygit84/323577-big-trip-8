@@ -64,7 +64,7 @@ const getPointDescriptionTemplate = (icon, type, time, price, chosenOffers, offe
 
         <label class="point__time">
           choose time
-          <input class="point__input" type="text" value="${time.start} - ${time.end}" name="time" placeholder="00:00 — 00:00">
+          <input class="point__input" type="text" value="${time.start} — ${time.end}" name="time" placeholder="00:00 — 00:00">
         </label>
 
         <label class="point__price">
