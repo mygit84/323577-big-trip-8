@@ -28,5 +28,43 @@ const getOfferId = (str) => str.replace(/ /g, `-`).toLowerCase();
 
 const getValue = (myMap, key) => myMap.get(key);
 
+const getElementAddedClass = (element, elementClass) => {
+  const elementAddedClass = element.classList.add(elementClass);
 
-export {getIntervalNum, getRandomElement, getRandomArray, getNewArray, renderElement, createElement, getCleanContainer, getOfferId, getValue};
+  return elementAddedClass;
+};
+
+const getElementRemovedClass = (element, elementClass) => {
+  const elementRemovedClass = element.classList.remove(elementClass);
+
+  return elementRemovedClass;
+};
+
+const getElementContainingClass = (element, elementClass) => {
+  const elementContainingClass = element.classList.contains(elementClass);
+
+  return elementContainingClass;
+};
+
+const getButtonClickHandler = (button, callback) => {
+  button.addEventListener(`click`, (evt) => {
+    callback(evt);
+  });
+  button.removeEventListener(`click`, callback);
+};
+
+export {
+  getIntervalNum,
+  getRandomElement,
+  getRandomArray,
+  getNewArray,
+  renderElement,
+  createElement,
+  getCleanContainer,
+  getOfferId,
+  getValue,
+  getElementAddedClass,
+  getElementRemovedClass,
+  getElementContainingClass,
+  getButtonClickHandler
+};

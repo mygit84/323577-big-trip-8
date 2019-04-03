@@ -35,5 +35,18 @@ const OFFERS = [
   `Choose seats`
 ];
 
+const FILTERS = [
+  {
+    title: `Everything`,
+    isChecked: true
+  },
+  {
+    title: `Future`
+  },
+  {
+    title: `Past`
+  }
+];
 
-export {EVENT_TYPES, CITIES, OFFERS};
+
+export {EVENT_TYPES, CITIES, OFFERS, FILTERS};

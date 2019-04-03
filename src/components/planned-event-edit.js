@@ -16,17 +16,19 @@ class PlannedEventEdit extends Component {
     this._icon = getValue(EVENT_TYPES, data.type);
     this._destination = data.destination;
     this._time = data.time;
+    this._duration = data.duration;
     this._price = data.price;
     this._allOffers = allOffers;
     this._offer = data.offer;
     this._description = data.description;
     this._photos = data.photos;
+    this._isDelete = data.isDelete;
 
     this._onSaveButtonClick = this._onSaveButtonClick.bind(this);
     this._onSubmit = null;
 
     this._onDeleteButtonClick = this._onDeleteButtonClick.bind(this);
-    this._onReset = null;
+    this._onDelete = null;
 
     this._onTypeButtonClick = this._onTypeButtonClick.bind(this);
   }
@@ -41,8 +43,7 @@ class PlannedEventEdit extends Component {
       time: {
         start: ``,
         end: ``
-      },
-      duration: ``
+      }
     };
 
     const plannedEventEditMapper = PlannedEventEdit.createMapper(entry);
@@ -81,11 +82,11 @@ class PlannedEventEdit extends Component {
   _onDeleteButtonClick(evt) {
     evt.preventDefault();
 
-    return typeof this._onSubmit === `function` && this._onSubmit();
+    return typeof this._onDelete === `function` && this._onDelete();
   }
 
-  set onReset(fn) {
-    this._onReset = fn;
+  set onDelete(fn) {
+    this._onDelete = fn;
   }
 
   _onTypeButtonClick(evt) {
@@ -101,17 +102,15 @@ class PlannedEventEdit extends Component {
   }
 
   bind() {
-    const form = this._element.querySelector(`form`);
-
-    form.addEventListener(`submit`, this._onSaveButtonClick);
-    form.addEventListener(`reset`, this._onDeleteButtonClick);
+    this._element.querySelector(`form`).addEventListener(`submit`, this._onSaveButtonClick);
+    this._element.querySelector(`.point__buttons [type="reset"]`).addEventListener(`click`, this._onDeleteButtonClick);
 
     this._element.querySelector(`.travel-way__select`).addEventListener(`change`, this._onTypeButtonClick);
 
     flatpickr(this._element.querySelector(`[name="time"]`), {
       mode: `range`,
       locale: {
-        rangeSeparator: ` - `
+        rangeSeparator: ` — `
       },
       enableTime: true,
       altInput: true,
@@ -128,7 +127,6 @@ class PlannedEventEdit extends Component {
     this._icon = getValue(EVENT_TYPES, data.type);
     this._offer = data.offer;
     this._time = data.time;
-    this._duration = data.duration;
   }
 
   static createMapper(target) {
